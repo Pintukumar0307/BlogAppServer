@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 const colors = require("colors");
 
-// mongodb+srv://pintublog:pintublog@cluster0.wgq2krq.mongodb.net/?retryWrites=true
-// mongodb+srv://<pintublog>:<pintublog>@cluster0.wgq2krq.mongodb.net/?retryWrites=true
-// mongodb://127.0.0.1:27017/blog
-
 
 
 const connectDB = async () => {

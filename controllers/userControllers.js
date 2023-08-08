@@ -9,16 +9,17 @@ exports.register= async(req,res)=>{
         // validation
         if(!username|| !email|| !password){
             return res.status(400).send({
-                succuss:false,
+                success:false,
                 message:"Please Fill all fields"
             })
         }
 
         // exisiting user
         const exisitingUser = await userModel.findOne({email});
+        
         if(exisitingUser){
             return res.status(401).send({
-                succuss:false,
+                success:false,
                 message:"User already registered",
 
             })
@@ -31,7 +32,7 @@ exports.register= async(req,res)=>{
         await user.save();
 
         return res.status(201).send({
-            succuss:true,
+            success:true,
             message:"User registered successfully",
             user
         })
@@ -42,7 +43,7 @@ exports.register= async(req,res)=>{
         console.log(error);
         return res.status(500).send({
             message:"Error in register",
-            succuss:false,
+            success:false,
             error
         })
         
@@ -55,7 +56,7 @@ exports.getAllUsers=async(req,res)=>{
         const users= await userModel.find({});
         return res.status(200).send({
             usercount:users.length,
-            succuss:true,
+            success:true,
             message:"User Get successfully",
             users
         })
@@ -66,7 +67,7 @@ exports.getAllUsers=async(req,res)=>{
 
         return res.status(500).send({
             message:"Error in getallusers",
-            succuss:false,
+            success:false,
             error
         })
         
@@ -85,7 +86,7 @@ exports.login= async(req,res)=>{
         // validation
         if(!email || !password){
             return res.status(401).send({
-                succuss:false,
+                success:false,
                 message:"Please Fill all fields"
             });
         }
@@ -93,7 +94,7 @@ exports.login= async(req,res)=>{
 
         if(!user){
             return res.status(201).send({
-                succuss:false,
+                success:false,
                 message:"Email is not registered",
             })
         }
@@ -121,7 +122,7 @@ exports.login= async(req,res)=>{
 
         return res.status(500).send({
             message:"Error in login",
-            succuss:false,
+            success:false,
             error
         })
     }

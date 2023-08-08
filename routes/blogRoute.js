@@ -1,5 +1,6 @@
 const express =require('express');
 const { getAllBlogs, createBlog, updateBlog, deleteBlog, getBlogById, userBlog } = require('../controllers/blogController');
+const imageUpload=require('../controllers/imageUpload');
 
 const router=express.Router();
 
@@ -10,6 +11,16 @@ router.get('/all-blog',getAllBlogs);
 
 //create Blog
 router.post('/create-blog',createBlog);
+
+// Image Upload
+
+router.post("/image-upload", (req, res) => {
+    imageUpload(req.body.image)
+      .then((url) => {
+        res.send(url)
+      })
+      .catch((err) => res.status(500).send(err));
+  });
 
 //update blog
 router.put('/update-blog/:id',updateBlog);

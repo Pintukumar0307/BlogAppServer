@@ -9,7 +9,6 @@ const path = require("path");
 //env config
 dotenv.config({
     path: "./config/config.env",
-  
   });
 
 // Routes import
@@ -27,9 +26,13 @@ const app = express();
 
 //middelwares
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "25mb" }));
 app.use(morgan("dev"));
-
+app.use(express.urlencoded({ limit: "25mb" }));
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 // Routes
 app.use('/api/v1/users',userRoute);
@@ -37,10 +40,10 @@ app.use('/api/v1/blog',blogRoute);
 
 
 //static files
-app.use(express.static(path.join(__dirname, "./client/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
 
 

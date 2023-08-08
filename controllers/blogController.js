@@ -3,6 +3,7 @@ const blogModel=require('../models/blogModel');
 const userModel = require('../models/userModel');
 
 
+
 exports.getAllBlogs=async(req,res)=>{
     try {
         const blogs=await blogModel.find({}).populate('user');
